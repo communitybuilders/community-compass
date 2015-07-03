@@ -11,6 +11,7 @@
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- TODO: move style into assets and combine/minify with gulpfile.js -->
     <style>
         body {
             padding-top: 50px;
@@ -18,6 +19,9 @@
         .starter-template {
             padding: 40px 15px;
             text-align: center;
+        }
+        #autocomplete {
+            margin-top: 1em;
         }
     </style>
 
@@ -38,7 +42,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Community Compass</a>
+            <a class="navbar-brand" href="{{ route('pages.index') }}">Community Compass</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -61,7 +65,11 @@
 
 </div><!-- /.container -->
 
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script src="/js/all.js"></script>
+
 </body>
 </html>

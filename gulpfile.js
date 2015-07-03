@@ -1,5 +1,7 @@
 var elixir = require('laravel-elixir');
 
+var browserSync = require('laravel-elixir-browser-sync');
+
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -13,4 +15,17 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix.sass('app.scss');
+
+    mix.scripts([
+        'autocomplete-address.js'
+    ]);
+
+    // Browser sync must come after sass and coffee, or else doesn't work
+    mix.browserSync([
+        'app/**/*',
+        'public/**/*',
+        'resources/views/**/*'
+    ], {
+        proxy: 'dev.community-compass.192.168.22.10.xip.io'
+    });
 });

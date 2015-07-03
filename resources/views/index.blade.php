@@ -1,5 +1,9 @@
 @extends('app')
 
 @section('content')
-    <h1>{{ $guestOrUser }}</h1>
+    <div class="form-group">
+        <input type="text" name="autocomplete" id="autocomplete" class="form-control" value="" title="" required="required" >
+    </div>
+
+
 @stop
