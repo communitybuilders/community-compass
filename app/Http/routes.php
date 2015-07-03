@@ -11,10 +11,24 @@
 |
 */
 
+// Static pages.
 Route::get('/', [
    'as' => 'pages.index',
    'uses' => 'PagesController@index'
 ]);
+
+Route::get('auth/register', [
+    'as' => 'auth.register.show',
+    'uses' => 'Auth\AuthController@getRegister'
+]);
+
+// Registration.
+Route::post('auth/register', [
+    'as' => 'auth.register',
+    'uses' => 'Auth\AuthController@postRegister'
+]);
+
+// Login/logout.
 Route::get('auth/login', [
     'as' => 'auth.login.show',
     'uses' => 'Auth\AuthController@getLogin'
@@ -23,18 +37,10 @@ Route::post('auth/login', [
     'as' => 'auth.login',
     'uses' => 'Auth\AuthController@postLogin'
 ]);
-
 Route::get('auth/logout', [
     'as' => 'auth.logout',
     'uses' => 'Auth\AuthController@getLogout'
 ]);
 
-Route::get('auth/register', [
-    'as' => 'auth.register.show',
-    'uses' => 'Auth\AuthController@getRegister'
-]);
-
-Route::post('auth/register', [
-    'as' => 'auth.register',
-    'uses' => 'Auth\AuthController@postRegister'
-]);
+// CRUD organisations.
+Route::resource('organisation', 'OrganisationController');
