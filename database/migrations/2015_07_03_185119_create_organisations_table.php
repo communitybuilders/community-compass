@@ -18,15 +18,15 @@ class CreateOrganisationsTable extends Migration
     {
         Schema::create('organisations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type')->default('charity');
+            $table->string('type')->default('Charity');
             $table->string('legal_name');
             $table->string('other_name')->nullable();
             $table->bigInteger('abn');
-            $table->date('registration_date');
-            $table->date('established_date')->nullable();
-            $table->enum('size', ['Small', 'Medium', 'Large'])->nullable();
-            $table->integer('num_responsible_persons')->default(0);
-            $table->date('financial_year_end');
+//            $table->date('registration_date');
+//            $table->date('established_date')->nullable();
+            $table->string('size')->nullable();
+            $table->integer('num_responsible_persons')->nullable();
+//            $table->date('financial_year_end');
             $table->timestamps();
         });
     }
