@@ -49,9 +49,7 @@
 
             <!-- TODO: change links depending on logged in or guest user -->
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ route('auth.register.show') }}">Register</a></li>
-                <li><a href="{{ route('auth.login.show') }}">Login</a></li>
-                <li><a href="{{ route('auth.logout') }}">Logout</a></li>
+                @include('partials.navbar.' . $guestOrUser)
             </ul>
         </div><!--/.nav-collapse -->
     </div>
