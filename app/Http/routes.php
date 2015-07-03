@@ -43,4 +43,4 @@ Route::get('auth/logout', [
 ]);
 
 // CRUD organisations.
-Route::resource('organisation', 'OrganisationController');
+Route::resource('organisations', 'OrganisationController');

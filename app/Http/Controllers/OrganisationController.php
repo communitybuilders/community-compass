@@ -20,7 +20,7 @@ class OrganisationController extends Controller
     {
         // TODO: pagination.
         $organisations = Organisation::all();
-        return view('organisation.index', compact($organisations));
+        return view('organisations.index', compact($organisations));
     }
 
     /**
@@ -30,7 +30,7 @@ class OrganisationController extends Controller
      */
     public function create()
     {
-        return view('organisation.create');
+        return view('organisations.create');
     }
 
     /**
@@ -51,7 +51,7 @@ class OrganisationController extends Controller
      */
     public function show($id)
     {
-        return view('organisation.show', compact($id));
+        return view('organisations.show', compact($id));
     }
 
     /**
@@ -62,7 +62,7 @@ class OrganisationController extends Controller
      */
     public function edit($id)
     {
-        return view('organisation.edit', compact($id));
+        return view('organisations.edit', compact($id));
     }
 
     /**
