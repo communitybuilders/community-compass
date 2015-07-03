@@ -1,5 +1,5 @@
 @extends('app')
 
 @section('content')
-    <h1>foo</h1>
+    <h1>{{ Auth::guest() ? 'GUEST' : 'LOGGED IN' }}</h1>
 @stop
