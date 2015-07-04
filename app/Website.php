@@ -21,4 +21,14 @@ class Website extends Model
         'entity_id',
         'url'
     ];
+
+    /**
+     * Return the organisation that this website belongs to.
+     *
+     * @return Organisation
+     */
+    public function getOrganisation()
+    {
+        return Organisation::find($this->entity_id)->first();
+    }
 }

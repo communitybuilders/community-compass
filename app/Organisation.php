@@ -49,9 +49,28 @@ class Organisation extends Model
         return $this->belongsToMany('App\State');
     }
 
-    public function addresses()
+    /**
+     * Return addresses belonging to this organisation.
+     *
+     * @return Address|null
+     */
+    public function getAddress()
     {
-        return Address::organisations($this->id);
+        return Address::where('entity_type', 'Organisation')
+            ->where('entity_id', $this->id)
+            ->first();
+    }
+
+    /**
+     * Return the website that this website belongs to.
+     *
+     * @return Website|null
+     */
+    public function getWebsite()
+    {
+        return Website::where('entity_type', 'Organisation')
+            ->where('entity_id', $this->id)
+            ->first();
     }
 
     /**

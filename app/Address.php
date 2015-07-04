@@ -42,6 +42,11 @@ class Address extends Model
         return $this->hasOne('App\AddressPoint');
     }
 
+    public function getOrganisation()
+    {
+        return Organisation::find($this->entity_id)->first();
+    }
+
     /**
      * Returns a query for addresses of organisations,
      * optionally filtered by organisation ID.
