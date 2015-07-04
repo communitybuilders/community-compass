@@ -49,6 +49,11 @@ class Organisation extends Model
         return $this->belongsToMany('App\State');
     }
 
+    public function addresses()
+    {
+        return Address::organisations($this->id);
+    }
+
     /**
      * Function to organisation values
      *
