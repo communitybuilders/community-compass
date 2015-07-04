@@ -42,5 +42,9 @@ Route::get('auth/logout', [
     'uses' => 'Auth\AuthController@getLogout'
 ]);
 
+//ajax calls
+Route::post('organisations/ajaxloadorganisations', 'OrganisationController@ajaxloadorganisations');
+
 // CRUD organisations.
 Route::resource('organisations', 'OrganisationController');
+

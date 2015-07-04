@@ -5,9 +5,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Organisation;
+use Input;
 
 class OrganisationController extends Controller
 {
@@ -19,8 +20,11 @@ class OrganisationController extends Controller
     public function index()
     {
         // TODO: pagination.
-        $organisations = Organisation::all();
-        return view('organisations.index', compact($organisations));
+
+        $organisation = new Organisation();
+        $organisation_arr = $organisation->fillorganisation();
+
+        return view('organisations.index', compact('organisation_arr'));
     }
 
     /**
@@ -85,5 +89,20 @@ class OrganisationController extends Controller
     public function destroy($id)
     {
         // Intentially left blank.
+    }
+
+    public function ajaxloadorganisations(){
+        $data = Input::all();
+
+
+
+            $current_row = $data['current_row'];
+        $next_row = $current_row + 1;
+
+        $organisation = New Organisation();
+        $organisation_arr = $organisation->fillorganisationbyid($next_row);
+
+        echo json_encode($organisation_arr);
+        die();
     }
 }

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 /**
  * Class Organisation
@@ -46,5 +47,27 @@ class Organisation extends Model
     public function states()
     {
         return $this->belongsToMany('App\State');
+    }
+
+    /**
+     * Function to organisation values
+     *
+     * @return array
+     */
+    public function fillorganisation()
+    {
+        $results = DB::table('organisations')->skip(10)->take(30)->get();
+        return $results;
+    }
+
+    /**
+     * Function to organisation values
+     * @param int $row
+     * @return array
+     */
+    public function fillorganisationbyid($row)
+    {
+        $results = DB::table('organisations')->skip(10)->take(30)->where('id', '<=', $row)->get();
+        return $results;
     }
 }
