@@ -35,7 +35,7 @@ class Organisation extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany('Category');
+        return $this->belongsToMany('App\Category');
     }
 
     /**
@@ -45,6 +45,6 @@ class Organisation extends Model
      */
     public function states()
     {
-        return $this->belongsToMany('State');
+        return $this->belongsToMany('App\State');
     }
 }

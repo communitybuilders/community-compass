@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Role;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -61,8 +62,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        // TODO: don't hardcode 1 as user type!!!
-        $user_type_id = 1;
+        $clientRoleId = Role::where('title', 'Client')->first()->id;
 
         return User::create([
             'username' => $data['username'],
@@ -70,7 +70,7 @@ class AuthController extends Controller
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'user_type_id' => $user_type_id
+            'role_id' => $clientRoleId
         ]);
     }
 }

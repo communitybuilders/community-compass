@@ -25,6 +25,6 @@ class Category extends Model
      */
     public function organisations()
     {
-        return $this->belongsToMany('Organisation');
+        return $this->belongsToMany('App\Organisation');
     }
 }

@@ -35,7 +35,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'last_name',
         'email',
         'password',
-        'user_type_id'
+        'role_id'
     ];
 
     /**
@@ -52,6 +52,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function role()
     {
-        return $this->belongsTo('Role');
+        return $this->belongsTo('App\Role');
     }
 }
