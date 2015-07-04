@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Organisation;
+use Illuminate\Support\Facades\Auth;
 use Input;
+
 
 class OrganisationController extends Controller
 {
@@ -19,12 +21,12 @@ class OrganisationController extends Controller
      */
     public function index()
     {
-        // TODO: pagination.
+        $logged_in = Auth::user();
 
         $organisation = new Organisation();
         $organisation_arr = $organisation->fillorganisation();
 
-        return view('organisations.index', compact('organisation_arr'));
+        return view('organisations.index', compact('organisation_arr', 'logged_in'));
     }
 
     /**

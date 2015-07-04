@@ -14,10 +14,17 @@
                         <div class="panel panel-default" style="padding: 10px 10px 10px 10px;">
                             <img src="http://www.clipartbest.com/cliparts/9Tp/bX4/9TpbX4njc.png" alt="image" width="140"><br />
                             {{$value->legal_name}}<br />
-                            <a href="#" data-toggle="modal" data-target="#claim">Claim</a><br />
-                            <a href="#" data-toggle="modal" data-target="#liked">Like</a> <br />
-                            <a href="#" data-toggle="modal" data-target="#subscribe">Subscribe</a><br />
-                            <a href="#" data-toggle="modal" data-target="#donate">Donate</a><br />
+                            @if (!is_null($logged_in))
+                                <a href="#" id="claim-{{$value->id}}" name="claim" data-toggle="modal" data-target="#claim">Claim</a><br />
+                                <a href="#" id="like-{{$value->id}}" name="like" data-toggle="modal" data-target="#liked">Like</a> <br />
+                                <a href="#" id="subscribe-{{$value->id}}" name="subscribe" data-toggle="modal" data-target="#subscribe">Subscribe</a><br />
+                                <a href="#" id="donate-{{$value->id}}" name="donate" data-toggle="modal" data-target="#donate">Donate</a><br />
+                            @else
+                                <a href="/auth/login" >Claim</a><br />
+                                <a href="/auth/login" >Like</a> <br />
+                                <a href="/auth/login" >Subscribe</a><br />
+                                <a href="/auth/login" >Donate</a><br />
+                            @endif
                         </div>
                     </section>
         @endforeach
@@ -26,12 +33,14 @@
     </div>
 
     <!-- Modals -->
+
+    <!-- Claim -->
     <div class="modal fade" id="claim" tabindex="-1" role="dialog" aria-labelledby="claimLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="claimLabel">Claim an Organisation</h4>
+                    <h4 class="modal-title" id="claimLabel">Claim your Organisation</h4>
                 </div>
                 <div class="modal-body">
                     Not Yet Implemented
@@ -43,11 +52,13 @@
         </div>
     </div>
 
-    <div class="modal fade" id="liked" tabindex="-1" role="dialog" aria-labelledby="likedLabel">
+    <!-- Like -->
+    <div class="modal fade" id="like" tabindex="-1" role="dialog" aria-labelledby="likeLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="likedLabel">Liked</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="claimLabel">Liked</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -56,40 +67,22 @@
         </div>
     </div>
 
-    <div class="modal fade" id="subscribe" tabindex="-1" role="dialog" aria-labelledby="subscribeLabel">
+    <!-- Subscribe -->
+    <div class="modal fade" id="donate" tabindex="-1" role="dialog" aria-labelledby="donateLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="subscribeLabel">Subscribe</h4>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">First Name</label>
-                            <input type="text" class="form-control" id="first_name" placeholder="Email">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Last Name</label>
-                            <input type="text" class="form-control" id="last_name" placeholder="Email">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="email" placeholder="Email">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id=password" placeholder="Password">
-                        </div>
-                    </form>
+                    <h4 class="modal-title" id="donateLabel">Subscribed</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Donate -->
     <div class="modal fade" id="donate" tabindex="-1" role="dialog" aria-labelledby="donateLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
