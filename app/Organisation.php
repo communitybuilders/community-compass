@@ -72,7 +72,7 @@ class Organisation extends Model
      */
     public function fillorganisationbyid($row)
     {
-        $results = DB::table('organisations')->take(30)->where('id', '<=', $row)->get();
+        $results = DB::table('organisations')->take(30)->where('id', '>=', $row)->get();
         return $results;
     }
 }
