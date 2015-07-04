@@ -17,7 +17,7 @@ class Organisation extends Model
      *
      * @var array
      */
-    protected $fillabe = [
+    protected $fillable = [
         'type',
         'legal_name',
         'other_name',
@@ -56,7 +56,7 @@ class Organisation extends Model
      */
     public function fillorganisation()
     {
-        $results = DB::table('organisations')->skip(10)->take(30)->get();
+        $results = DB::table('organisations')->take(30)->get();
         return $results;
     }
 
@@ -67,7 +67,7 @@ class Organisation extends Model
      */
     public function fillorganisationbyid($row)
     {
-        $results = DB::table('organisations')->skip(10)->take(30)->where('id', '<=', $row)->get();
+        $results = DB::table('organisations')->take(30)->where('id', '<=', $row)->get();
         return $results;
     }
 }
