@@ -96,9 +96,7 @@ class OrganisationController extends Controller
     public function ajaxloadorganisations(){
         $data = Input::all();
 
-
-
-            $current_row = $data['current_row'];
+        $current_row = $data['current_row'];
         $next_row = $current_row + 1;
 
         $organisation = New Organisation();

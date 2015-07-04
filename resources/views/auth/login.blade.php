@@ -1,6 +1,8 @@
 @extends('app')
 
 @section('content')
+
+    <div class="center-block" style="max-width: 50%">
     <h1>Login</h1>
 
     @include('errors.partials.list')
@@ -17,7 +19,8 @@
         {!! Form::password('password', ['class' => 'form-control']) !!}
     </div>
 
-    {!! Form::submit('Login', ['class' => 'form-control']) !!}
+    {!! Form::submit('Login', ['class' => 'btn btn-primary']) !!}
 
     {!! Form::close() !!}
+    </div>
 @stop
