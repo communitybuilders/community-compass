@@ -24,6 +24,6 @@ elixir(function(mix) {
         'public/**/*',
         'resources/views/**/*'
     ], {
-        proxy: 'communitycompass.localhost'
+        proxy: 'dev.community-compass.192.168.22.10.xip.io'
     });
 });
