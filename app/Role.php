@@ -18,6 +18,11 @@ class Role extends Model
      */
     protected $fillable = ['title'];
 
+    public function client()
+    {
+        Role::where('title', 'Client')
+    }
+
     /**
      * A role can have many users.
      *

@@ -16,9 +16,7 @@ var browserSync = require('laravel-elixir-browser-sync');
 elixir(function(mix) {
     mix.sass('app.scss');
 
-    mix.scripts([
-        'autocomplete-address.js'
-    ]);
+    mix.scripts(['*.js']);
 
     // Browser sync must come after sass and coffee, or else doesn't work
     mix.browserSync([
