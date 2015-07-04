@@ -20,18 +20,18 @@ $(function () {
         var name;
 
         // TODO: use address parts to search for nearby charities.
-        $.each(place.address_components, function(index, component) {
-            type = component.types[0];
-            name = addressParts[type];
-            if (name) {
-                console.log(type + ' = ' + component[name]);
-            }
-        });
+        //$.each(place.address_components, function(index, component) {
+        //    type = component.types[0];
+        //    name = addressParts[type];
+        //    if (name) {
+        //        console.log(type + ' = ' + component[name]);
+        //    }
+        //});
 
         // TODO: use geocode to display map marker.
         if (place.geometry && place.geometry.location) {
-            console.log('lat = ' + place.geometry.location.lat());
-            console.log('lng = ' + place.geometry.location.lng());
+            $('#lat').val(place.geometry.location.lat()).trigger('change');
+            $('#lng').val(place.geometry.location.lng()).trigger('change');
         }
 
     });
@@ -40,16 +40,9 @@ $(function () {
 
 $(function () {
     "use strict";
-    var defaultGeocode = {
-        lat: -33.8132992,
-        lng: 151.0094947
-    };
-    var latLng = new google.maps.LatLng(defaultGeocode.lat, defaultGeocode.lng);
     var mapOptions = {
-        //disableDefaultUI: true,
-        center: latLng,
         mapTypeControl: false,
-        mapTypeId: google.maps.MapTypeId.HYBRID,
+        //mapTypeId: google.maps.MapTypeId.HYBRID,
         overviewMapControl: true,
         panControl: false,
         scaleControl: false,
@@ -58,6 +51,34 @@ $(function () {
         zoomControl: true
     };
     var map = new google.maps.Map($('#canvas')[0], mapOptions);
+    var marker = new google.maps.Marker();
+    var infoWindow = new google.maps.InfoWindow();
+    var latLng;
+
+    google.maps.event.addListener(marker, 'click', function() {
+        infoWindow.setContent('<p>' + $('#autocomplete').val() + '</p>');
+        infoWindow.open(map, marker);
+    });
+
+    var updateMap = function(lat, lng) {
+        infoWindow.close();
+        marker.setMap(null);
+        latLng = new google.maps.LatLng(lat, lng);
+        map.setCenter(latLng);
+        marker.setPosition(latLng);
+        marker.setMap(map);
+    };
+
+    $('#lat, #lng').on('change', function() {
+        updateMap($('#lat').val(), $('#lng').val());
+    });
+
+    // Trigger update map for office location.
+    var defaultLoc = {
+        lat: -33.8132992,
+        lng: 151.0094947
+    };
+    updateMap(defaultLoc.lat, defaultLoc.lng);
 
 });
 
@@ -96,6 +117,12 @@ $(function () {
 
             }
         }, 200);
+    });
+
+    $(document).on("click", ".claim", function () {
+        var claim_id = $(this).data('id');
+        $(".modal-body #bookId").val( claim_id );
+        $('#addBookDialog').modal('show');
     });
 
 });

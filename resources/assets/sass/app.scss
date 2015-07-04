@@ -1,5 +1,13 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+body {
+  padding-top: 50px;
+}
+
+#autocomplete {
+  margin-top: 1em;
+}
 
 #canvas {
-  height: 480px;
+  height: 20em;
 }

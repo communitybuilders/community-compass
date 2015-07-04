@@ -9,21 +9,7 @@
 
     <title>Community Compass</title>
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- TODO: move style into assets and combine/minify with gulpfile.js -->
-    <style>
-        body {
-            padding-top: 50px;
-        }
-        .starter-template {
-            padding: 40px 15px;
-            text-align: center;
-        }
-        #autocomplete {
-            margin-top: 1em;
-        }
-    </style>
+    <link href="/css/app.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>

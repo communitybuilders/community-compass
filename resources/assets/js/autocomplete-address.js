@@ -20,18 +20,18 @@ $(function () {
         var name;
 
         // TODO: use address parts to search for nearby charities.
-        $.each(place.address_components, function(index, component) {
-            type = component.types[0];
-            name = addressParts[type];
-            if (name) {
-                console.log(type + ' = ' + component[name]);
-            }
-        });
+        //$.each(place.address_components, function(index, component) {
+        //    type = component.types[0];
+        //    name = addressParts[type];
+        //    if (name) {
+        //        console.log(type + ' = ' + component[name]);
+        //    }
+        //});
 
         // TODO: use geocode to display map marker.
         if (place.geometry && place.geometry.location) {
-            console.log('lat = ' + place.geometry.location.lat());
-            console.log('lng = ' + place.geometry.location.lng());
+            $('#lat').val(place.geometry.location.lat()).trigger('change');
+            $('#lng').val(place.geometry.location.lng()).trigger('change');
         }
 
     });

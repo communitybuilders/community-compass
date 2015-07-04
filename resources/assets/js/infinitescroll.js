@@ -35,4 +35,10 @@ $(function () {
         }, 200);
     });
 
+    $(document).on("click", ".claim", function () {
+        var claim_id = $(this).data('id');
+        $(".modal-body #bookId").val( claim_id );
+        $('#addBookDialog').modal('show');
+    });
+
 });
