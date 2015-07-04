@@ -1,7 +1,9 @@
 @extends('app')
 
 @section('content')
-    <h1>Register</h1>
+
+    <div class="center-block" style="max-width: 50%">
+    <h1>Sign Up</h1>
 
     @include('errors.partials.list')
 
@@ -37,7 +39,9 @@
         {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
     </div>
 
-    {!! Form::submit('Register', ['class' => 'form-control']) !!}
+    {!! Form::submit('Register', ['class' => 'btn btn-primary']) !!}
 
     {!! Form::close() !!}
+    </div>
+
 @stop

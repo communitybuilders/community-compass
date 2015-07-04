@@ -30,12 +30,12 @@
             </button>
 
             <a class="navbar-brand" href="{{ route('pages.index') }}" >
-                <img style="vertical-align: top; max-width:50px; margin-top: -15px; display:inline-block;" src="images/logo.png"/>Community Compass
+                <img style="vertical-align: top; max-width:50px; margin-top: -15px; display:inline-block;" src="/images/logo.png"/>Community Compass
             </a>
         </div>
         <div id="navbar" class="collapse" style="width:500px">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Admin</a></li>
+                <li class="active"><a href="#">Organisation</a></li>
             </ul>
 
             <!-- TODO: change links depending on logged in or guest user -->
