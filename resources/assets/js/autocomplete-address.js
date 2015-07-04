@@ -1,4 +1,11 @@
 $(function () {
+    'use strict';
+
+    // Only run this js on the index page.
+    if (!$('body').is('#pages-index')) {
+        return;
+    }
+
     var input = $('#autocomplete')[0];
     var options = {
         types: ['address']

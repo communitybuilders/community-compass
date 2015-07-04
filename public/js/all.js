@@ -1,4 +1,11 @@
 $(function () {
+    'use strict';
+
+    // Only run this js on the index page.
+    if (!$('body').is('#pages-index')) {
+        return;
+    }
+
     var input = $('#autocomplete')[0];
     var options = {
         types: ['address']
@@ -39,7 +46,12 @@ $(function () {
 });
 
 $(function () {
-    "use strict";
+
+    // Only run this js on the index page.
+    if (!$('body').is('#pages-index')) {
+        return;
+    }
+
     var mapOptions = {
         mapTypeControl: false,
         //mapTypeId: google.maps.MapTypeId.HYBRID,
@@ -83,6 +95,11 @@ $(function () {
 });
 
 $(function () {
+
+    // Only run this js on the organisations index page.
+    if (!$('body').is('#organisations-index')) {
+        return;
+    }
     var current_row = 30;
 
     $(window).scroll(function() {

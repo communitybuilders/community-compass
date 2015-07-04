@@ -17,7 +17,7 @@
     <![endif]-->
 </head>
 
-<body>
+<body id="{{ str_replace('.', '-', Route::currentRouteName()) }}">
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">

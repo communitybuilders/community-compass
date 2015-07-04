@@ -1,5 +1,10 @@
 $(function () {
-    "use strict";
+
+    // Only run this js on the index page.
+    if (!$('body').is('#pages-index')) {
+        return;
+    }
+
     var mapOptions = {
         mapTypeControl: false,
         //mapTypeId: google.maps.MapTypeId.HYBRID,

@@ -1,4 +1,9 @@
 $(function () {
+
+    // Only run this js on the organisations index page.
+    if (!$('body').is('#organisations-index')) {
+        return;
+    }
     var current_row = 30;
 
     $(window).scroll(function() {
