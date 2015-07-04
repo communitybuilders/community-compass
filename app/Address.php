@@ -33,6 +33,16 @@ class Address extends Model
     ];
 
     /**
+     * Each address has one point.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function addressPoint()
+    {
+        return $this->hasOne('App\AddressPoint');
+    }
+
+    /**
      * Returns a query for addresses of organisations,
      * optionally filtered by organisation ID.
      *
