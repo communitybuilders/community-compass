@@ -57,6 +57,7 @@ class OrganisationController extends Controller
      */
     public function show($id)
     {
+        $org_obj = new Organisation();
         return view('organisations.show', compact($id));
     }
 

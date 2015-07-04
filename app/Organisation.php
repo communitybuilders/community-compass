@@ -80,7 +80,7 @@ class Organisation extends Model
      */
     public function fillorganisation()
     {
-        $results = DB::table('organisations')->take(30)->get();
+        $results = DB::table('organisations')->leftjoin('image', 'organisations.id', '=', 'image.entity_id')->take(30)->get();
         return $results;
     }
 
@@ -91,7 +91,7 @@ class Organisation extends Model
      */
     public function fillorganisationbyid($row)
     {
-        $results = DB::table('organisations')->take(30)->where('id', '>=', $row)->get();
+        $results = DB::table('organisations')->leftjoin('image', 'organisations.id', '=', 'image.entity_id')->take(30)->where('organisations.id', '>=', $row)->get();
         return $results;
     }
 }
