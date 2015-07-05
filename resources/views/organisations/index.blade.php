@@ -18,17 +18,17 @@
                             @endif
 
                             <div style="padding-left: 17px; padding-right: 17px; ">
-                                {{$value->legal_name}}<br />
+                                <b>{{$value->legal_name}}</b><br />
                             @if (!is_null($logged_in))
-                                <a href="#" id="claim-{{$value->id}}" name="claim" data-toggle="modal" data-target="#claim">Claim</a><br />
-                                <a href="#" id="like-{{$value->id}}" name="like" data-toggle="modal" data-target="#liked">Like</a><br />
-                                <a href="#" id="subscribe-{{$value->id}}" name="subscribe" data-toggle="modal" data-target="#subscribe">Subscribe</a><br />
-                                <a href="#" id="donate-{{$value->id}}" name="donate" data-toggle="modal" data-target="#donate">Donate</a><br />
+                                <a href="#" id="claim-{{$value->id}}" name="claim" data-toggle="modal" data-target="#claim"><span class='fa fa-plus-square';> Claim</span></a><br />
+                                <a href="#" id="like-{{$value->id}}" name="like" data-toggle="modal" data-target="#liked"><span class='fa fa-heart'> Like</span></a><br />
+                                <a href="#" id="subscribe-{{$value->id}}" name="subscribe" data-toggle="modal" data-target="#subscribe"><span class='fa fa-share-square-o'> Subscribe</span></a><br />
+                                <a href="#" id="donate-{{$value->id}}" name="donate" data-toggle="modal" data-target="#donate"><span class='fa fa-usd'> Donate</span></a><br />
                             @else
-                                <a href="/auth/login" >Claim</a><br />
-                                <a href="/auth/login" >Like</a> <br />
-                                <a href="/auth/login" >Subscribe</a><br />
-                                <a href="/auth/login" >Donate</a><br />
+                                <a href="/auth/login" ><span class='fa fa-plus-square';> Claim</span></a><br />
+                                <a href="/auth/login" ><span class='fa fa-heart'> Like</span></a> <br />
+                                <a href="/auth/login" ><span class='fa fa-share-square-o'> Subscribe</span></a><br />
+                                <a href="/auth/login" ><span class='fa fa-usd'> Donate</span></a><br />
                             @endif
                             </div>
                         </div>
@@ -37,7 +37,6 @@
             </div>
     </div>
     </div>
-
     <!-- Modals -->
 
     <!-- Claim -->

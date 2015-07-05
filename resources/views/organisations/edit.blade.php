@@ -12,7 +12,9 @@
       <h1>{{$org["legal_name"]}}</h1>
  
  
-      <form method="POST" action="http://dev.community-builder.192.168.22.10.xip.io/organisations/store" accept-charset="UTF-8"><input name="_token" type="hidden" value="fLLt0yli9LZhPMb5VaQGoQFpxoUW0hLt7frf3ekd"> <div class="form-group">
+      <form method="POST" action="/organisations" accept-charset="UTF-8">
+          <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+
  
     <div class="form-group">
     <label for="Address Line 1" class="control-label">Address Line 1</label>

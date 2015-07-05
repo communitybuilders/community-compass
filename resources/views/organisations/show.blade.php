@@ -45,13 +45,8 @@
           {{$org->getWebsite()["url"]}}
      </div>
 
+        <a class="btn btn-primary" type="button" href=/organisations/{{$org["id"]}}/edit> Update Details </a>
 
-
-
-
-    <a class="btn btn-primary" type="button" href=/organisations/{{$org["id"]}}/edit> Update Details </a>
-
-    </form>
     </div>
 
 
