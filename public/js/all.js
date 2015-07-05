@@ -40,6 +40,7 @@ $(function () {
 
     // Only run this js on the index page.
     if (!$('body').is('#organisations-index')) {
+
         return;
     }
 
@@ -168,8 +169,9 @@ $(function () {
     $(window).scroll(function() {
         var increment = 30;
         var display ="";
-
-        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            console.log('x');
+        if(($(window).scrollTop() + $(window).height()) == $(document).height()) {
+            console.log('xx');
             setTimeout(function(){
                 $.ajax({
                     type: "POST",

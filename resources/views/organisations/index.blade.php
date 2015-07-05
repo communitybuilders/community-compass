@@ -1,7 +1,5 @@
 @extends('app')
 
-
-    <div id="canvas" style="margin-left: 0px;"></div>
 @section('content')
     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
     <input type="hidden" id="auth" value="<?php echo $logged_in; ?>">

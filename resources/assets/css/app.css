@@ -7,8 +7,8 @@ Error: File to import not found or unreadable: node_modules/bootstrap-sass/asset
 2: 
 3: body {
 4:   padding-top: 50px;
-5: }
-6: 
+5:   background-color: #F1F1F1;
+6: }
 
 Backtrace:
 /home/joseph/public_html/community-compass/resources/assets/sass/app.scss:1
@@ -49,4 +49,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: node_modules/bootstrap-sass/assets/stylesheets/bootstrap.\A        Load path: /home/joseph/public_html/community-compass/resources/assets/sass\A         on line 1 of /home/joseph/public_html/community-compass/resources/assets/sass/app.scss\A \A 1: @import \"node_modules/bootstrap-sass/assets/stylesheets/bootstrap\";\A 2: \A 3: body {\A 4:   padding-top: 50px;\A 5: }\A 6: "; }
+  content: "Error: File to import not found or unreadable: node_modules/bootstrap-sass/assets/stylesheets/bootstrap.\A        Load path: /home/joseph/public_html/community-compass/resources/assets/sass\A         on line 1 of /home/joseph/public_html/community-compass/resources/assets/sass/app.scss\A \A 1: @import \"node_modules/bootstrap-sass/assets/stylesheets/bootstrap\";\A 2: \A 3: body {\A 4:   padding-top: 50px;\A 5:   background-color: #F1F1F1;\A 6: }"; }

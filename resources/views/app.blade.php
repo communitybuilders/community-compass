@@ -42,7 +42,7 @@
             @endif
 
         </div>
-        <div id="navbar" class="collapse navbar-inverse" style="width:200px; margin-top:-8px; float:right; padding-left:30px">
+        <div id="navbar" class="collapse navbar-default" style="width:200px; margin-top:-8px; float:right; padding-left:30px">
             <ul class="nav navbar-nav">
                 <li><a href="/organisations">Organisation</a></li>
             </ul>
@@ -54,7 +54,9 @@
         </div><!--/.nav-collapse -->
     </div>
 </nav>
-
+@if (Route::currentRouteName() === 'organisations.index')
+<div id="canvas" style="margin-left: 0px;"></div>
+@endif
 <div class="container">
 
     @yield('content')
