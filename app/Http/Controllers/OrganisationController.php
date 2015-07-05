@@ -4,12 +4,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Address;
+use App\AddressPoint;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Organisation;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Input;
+use Request;
 
 
 class OrganisationController extends Controller
@@ -109,5 +112,49 @@ class OrganisationController extends Controller
 
         echo json_encode($organisation_arr);
         die();
+    }
+
+    /**
+     * Return a list of nearby organisations, for AJAX requests.
+     *
+     */
+    public function nearby()
+    {
+        if (!Request::ajax()) {
+            return response('Unauthorized.', 401);
+        }
+
+        $request = Request::all();
+
+        // Get address ids.
+        $query = DB::raw("
+            SELECT address_id,
+            ST_DISTANCE(
+                geopoint,
+                POINT(?, ?)
+            ) AS distance
+            FROM address_points
+            WHERE geopoint IS NOT NULL
+            ORDER BY distance
+            LIMIT 0, 10
+        ");
+        $points = DB::select($query, [$request['lat'], $request['lng']]);
+        $addressIds = [];
+        foreach ($points as $point) {
+            $addressIds[] = $point->address_id;
+        }
+
+
+        // Get full Organisation details for all addresses.
+        $addresses = Address::whereIn('id', $addressIds)->get();
+        $organisations = [];
+        foreach($addresses as $address) {
+            $organisation = $address->getOrganisation();
+            $organisation->address = $address;
+            $organisation->website = $organisation->getWebsite();
+            $organisations[] = $organisation;
+        }
+
+        return $organisations;
     }
 }

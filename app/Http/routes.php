@@ -44,6 +44,7 @@ Route::get('auth/logout', [
 
 //ajax calls
 Route::post('organisations/ajaxloadorganisations', 'OrganisationController@ajaxloadorganisations');
+Route::post('organisations/nearby', 'OrganisationController@nearby');
 
 // CRUD organisations.
 Route::resource('organisations', 'OrganisationController');

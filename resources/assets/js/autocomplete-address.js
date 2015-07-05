@@ -26,18 +26,9 @@ $(function () {
         var type;
         var name;
 
-        // TODO: use address parts to search for nearby charities.
-        //$.each(place.address_components, function(index, component) {
-        //    type = component.types[0];
-        //    name = addressParts[type];
-        //    if (name) {
-        //        console.log(type + ' = ' + component[name]);
-        //    }
-        //});
-
         // TODO: use geocode to display map marker.
         if (place.geometry && place.geometry.location) {
-            $('#lat').val(place.geometry.location.lat()).trigger('change');
+            $('#lat').val(place.geometry.location.lat());
             $('#lng').val(place.geometry.location.lng()).trigger('change');
         }
 

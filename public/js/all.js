@@ -26,18 +26,9 @@ $(function () {
         var type;
         var name;
 
-        // TODO: use address parts to search for nearby charities.
-        //$.each(place.address_components, function(index, component) {
-        //    type = component.types[0];
-        //    name = addressParts[type];
-        //    if (name) {
-        //        console.log(type + ' = ' + component[name]);
-        //    }
-        //});
-
         // TODO: use geocode to display map marker.
         if (place.geometry && place.geometry.location) {
-            $('#lat').val(place.geometry.location.lat()).trigger('change');
+            $('#lat').val(place.geometry.location.lat());
             $('#lng').val(place.geometry.location.lng()).trigger('change');
         }
 
@@ -52,6 +43,7 @@ $(function () {
         return;
     }
 
+    var mapCanvas = $('#canvas');
     var mapOptions = {
         mapTypeControl: false,
         //mapTypeId: google.maps.MapTypeId.HYBRID,
@@ -59,11 +51,12 @@ $(function () {
         panControl: false,
         scaleControl: false,
         streetViewControl: true,
-        zoom: 18,
+        zoom: 16,
         zoomControl: true
     };
-    var map = new google.maps.Map($('#canvas')[0], mapOptions);
+    var map = new google.maps.Map(mapCanvas[0], mapOptions);
     var marker = new google.maps.Marker();
+    var markersArray = [];
     var infoWindow = new google.maps.InfoWindow();
     var latLng;
 
@@ -72,25 +65,94 @@ $(function () {
         infoWindow.open(map, marker);
     });
 
+    var addNearbyMarker = function(lat, lng, organisation) {
+        var nearbyLatLng = new google.maps.LatLng(lat, lng);
+        var nearbyMarker = new google.maps.Marker({
+            position: nearbyLatLng,
+            map: map
+        });
+
+        google.maps.event.addListener(nearbyMarker, 'click', function() {
+            var infoContainer = $('.info-window').first();
+
+            var content = '<div class="info-window">'
+                + '<div class="image-container pull-left">'
+                + '<img src="http://placehold.it/100x75">'
+                + '<div class="info-actions text-center">'
+                + '<a href="info-claim">C</a>'
+                + '<a href="info-like">L</a>'
+                + '<a href="info-subscribe">S</a>'
+                + '<a href="info-donate">D</a>'
+                + '</div>'
+                + '</div>'
+                + '<div class="pull-left">'
+                + '<p class="info-legal-name">' + organisation.legal_name + '</p>';
+
+            if (organisation.website) {
+                content += '<p class="info-website"><a href="' + organisation.website.url + '">' + organisation.website.url + '</a></p>';
+            }
+
+            content += '<p><span class="info-address.address-1">' + organisation.address.address_line_1 + ' ' + organisation.address.address_line_2 + ' ' + organisation.address.address_line_3 + '</span><br>'
+            + '<span class="info-address.address-2">' + organisation.address.suburb + ' ' + organisation.address.state + ' ' + organisation.address.state + '</span>'
+            + '</p>'
+            + '</div>'
+            + '</div>';
+
+            infoWindow.setContent(content);
+            infoWindow.open(map, nearbyMarker);
+            infoContainer.show();
+        });
+
+        markersArray.push(nearbyMarker);
+    };
+
     var updateMap = function(lat, lng) {
         infoWindow.close();
+
         marker.setMap(null);
+        for (var i = 0; i < markersArray.length; i++) {
+            markersArray[i].setMap(null);
+        }
+        markersArray = [];
+
         latLng = new google.maps.LatLng(lat, lng);
         map.setCenter(latLng);
         marker.setPosition(latLng);
         marker.setMap(map);
     };
 
+    var getNearbyOrganisations = function(lat, lng) {
+
+        $.ajax({
+            type: 'POST',
+            url: 'organisations/nearby',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                'lat': lat,
+                'lng': lng
+            },
+            success: function(results) {
+                $.each(results, function (index, result) {
+                    addNearbyMarker(result.address.lat, result.address.lng, result);
+                });
+            }
+        });
+
+    };
+
     $('#lat, #lng').on('change', function() {
         updateMap($('#lat').val(), $('#lng').val());
+        getNearbyOrganisations($('#lat').val(), $('#lng').val());
     });
 
-    // Trigger update map for office location.
     var defaultLoc = {
         lat: -33.8132992,
         lng: 151.0094947
     };
     updateMap(defaultLoc.lat, defaultLoc.lng);
+
 
 });
 
@@ -128,8 +190,7 @@ $(function () {
                                 display +="<img class='img-responsive center-block' style='width:100%; height:252px' src=" + value.image_uri +" alt='image'><br />";
                             }else{
                                 display +="<img class='img-responsive center-block' style='width:100%' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACgCAMAAAC8EZcfAAAANlBMVEXMzMzPz8+RkZHExMSampqQkJDKysqfn5/Hx8e7u7vDw8OUlJS4uLiXl5esrKypqamzs7Ojo6OgzyMdAAACGUlEQVR4nO3V247cIBAEUJqLAXP//59NNR5npd1IeQl5qiNZYhgsaqBhjCEiIiIiIiIiIiIiIiIiIiIiIiIiIiIiOklE3sa3jp8D5fsbfx75T+URe9LJ8lp1zzrjuv80cV9r7v4eh75hUn9ePWraFot3aBTvgybs1rfwc96EYd52tNAoHgOcb9Gu62y+5H2WbqekVVL2XsztY5plvJv57rxMOy6MviWj0csU9EwTWz4b8Mq3MRUBkQshQ5LaOj74vTB1TNFH264mIxEBNdxth5GFDxryuCuGLFkXbdgss1S5EARfyAj+XsG/BYnw/pLVsiS7krT4LOfxgLF0zG27YK91v6vIExC9Zfjx+8BkX25dxWwkLCcBAd35gFfHaug274D1DfgprVba/Y68Izb3E9DGHdD8h4A4vXqp5NKfLdaA5rOCBgX3FSCWoV1Lz4XFChas4H084O3DXqzchlzDouyxTDit7gn4XCi7OfdKozBRg05rUI903RfPQZdeMXqRYP9EHyRdos8OpTXY5fNLkEd20L4fGThOo+SzfybJt1lrxTb10gemNddqfdn8hnKIsE/0bDHXiv7U/PRambnFWaI7ms+4YgNgujRs2f9gbtk29pe4Zga2POg5Rm3qSFw5kqNt+/arPsTD9zTibNq6nHvqPb0NtJJ2p0/vOzK59PU9EREREREREREREREREREREREREREREf3NL2UnEmIOKkswAAAAAElFTkSuQmCC' alt='image'><br />";
-                            }
-                            display +="<div style='padding-left:17px; padding-right: 17px;'>"
+                            }display +="<div style='padding-left:17px; padding-right: 17px;'>"
                             display += value.legal_name + "<br />";
                             if ($('#auth').val().length) {
                                 display +="<a href='#' id='claim-{{$value->id}}' name='claim' data-toggle='modal' data-target='#claim'>claim</a><br />";

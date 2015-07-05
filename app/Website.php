@@ -29,6 +29,6 @@ class Website extends Model
      */
     public function getOrganisation()
     {
-        return Organisation::find($this->entity_id)->first();
+        return Organisation::find($this->entity_id);
     }
 }

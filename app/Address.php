@@ -42,9 +42,14 @@ class Address extends Model
         return $this->hasOne('App\AddressPoint');
     }
 
+    /**
+     * Get the organisation that this address belongs to.
+     *
+     * @return Organisation|null
+     */
     public function getOrganisation()
     {
-        return Organisation::find($this->entity_id)->first();
+        return Organisation::find($this->entity_id);
     }
 
     /**
