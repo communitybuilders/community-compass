@@ -42,7 +42,7 @@
             @endif
 
         </div>
-        <div id="navbar" class="collapse navbar-inverse" style="width:200px; margin-top:0px; float:right; padding-left:30px">
+        <div id="navbar" class="collapse navbar-inverse" style="width:200px; margin-top:-8px; float:right; padding-left:30px">
             <ul class="nav navbar-nav">
                 <li><a href="/organisations">Organisation</a></li>
             </ul>
