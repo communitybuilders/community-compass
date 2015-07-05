@@ -5,12 +5,12 @@
 namespace App\Http\Controllers;
 
 use App\Address;
-use App\AddressPoint;
-use App\Http\Requests;
+use App\Token;
 use App\Http\Controllers\Controller;
 use App\Organisation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Input;
 use Request;
 
@@ -156,5 +156,45 @@ class OrganisationController extends Controller
         }
 
         return $organisations;
+    }
+
+    public function claim() {
+        $user_obj = Auth::user();
+        $today = new \DateTime();
+
+        $input = Input::all();
+
+        $existing_user = TRUE;
+        if( is_null($user_obj) ) {
+            // No logged in user.
+            // We need to create a new user.
+            $input['created_at'] = $today->format("Y-m-d H:i:s");
+            $input['updated_at'] = $today->format("Y-m-d H:i:s");
+            $input['role_id'] = 2; // Client
+
+            $user_obj = User::create($input);
+
+            $existing_user = FALSE;
+        }
+
+        $org_obj = Organisation::find($input['organisation_id']);
+
+        // Create a token
+        $token_params = [
+            "type" => "organisation_claim",
+            "email" => $user_obj->email,
+            "organisation_id" => $org_obj->id,
+            "user_id" => $user_obj->id
+        ];
+        $token_obj = Token::create($token_params);
+
+        $mail_header = "From: "."Community Builders Support" ." <"."support@communitybuilders.com.au." .">\n";
+        $mail_header .= "Reply-To: "."support@communitybuilders.com.au"."\n";
+        $mail_header .= "MIME-Version: 1.0\n";
+
+        // Send the email
+        mail($user_obj->email, "Claim an organisation", "Hi {$user_obj->first_name}, <br/><br/>Click <a href='google.com'>here</a> to claim your organisation", $mail_header, '-fsupport@communitybuilders.com.au');
+
+        return Redirect::route("organisations.index", ["message" => "An email has been sent to {$user_obj->email} with instructions on how to claim this organisation."]);
     }
 }

@@ -54,3 +54,11 @@ Route::post('organisations/nearby', 'OrganisationController@nearby');
 // CRUD organisations.
 Route::resource('organisations', 'OrganisationController');
 
+// Claim an organisation
+Route::post('organisation/claim', 'OrganisationController@claim');
+
+Route::bind('token', function($token_str) {
+    return \App\Token::whereToken($token_str)->first();
+});
+
+Route::get('token/process/{token}', 'TokenController@process');

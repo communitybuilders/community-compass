@@ -193,7 +193,7 @@ $(function () {
                             }display +="<div style='padding-left:17px; padding-right: 17px;'>"
                             display += value.legal_name + "<br />";
                             if ($('#auth').val().length) {
-                                display +="<a href='#' id='claim-{{$value->id}}' name='claim' data-toggle='modal' data-target='#claim'><span class='fa fa-plus-square'> Claim</span></a><br />";
+                                display +="<a href='#' id='claim-{{$value->id}}' name='claim' data-toggle='modal' data-target='#claim' class='claim_link'><span class='fa fa-plus-square'> Claim</span></a><br />";
                                 display +="<a href='#' id='like-{{$value->id}}' name='like' data-toggle='modal' data-target='#liked'><span class='fa fa-heart'> Like</span></a><br />";
                                 display +="<a href='#' id='subscribe-{{$value->id}}' name='subscribe' data-toggle='modal' data-target='#subscribe'><span class='fa fa-share-square-o'> Subscribe</span></a><br />";
                                 display +="<a href='#' id='donate-{{$value->id}}' name='donate' data-toggle='modal' data-target='#donate'><span class='fa fa-usd'> Donate</span></a><br />";
@@ -218,12 +218,11 @@ $(function () {
 
     });
 
-    $(document).on("click", ".claim", function () {
-        var claim_id = $(this).data('id');
-        $(".modal-body #bookId").val( claim_id );
-        $('#addBookDialog').modal('show');
+    $(document).on("click", ".claim_link", function () {
+        var organisation_id = $(this).attr('id').replace("claim-", "");
+        alert("Clicked claim link for organisation with ID: " +organisation_id);
+        $("#claim_organisation_id").val(organisation_id);
     });
-
 });
 
 //# sourceMappingURL=all.js.map

@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
-class Relationship extends Model
+class RelationshipType extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -13,9 +13,5 @@ class Relationship extends Model
      * @var array
      */
     protected $fillable = [
-        "organisation_id",
-        "user_id",
-        "start_date",
-        "relationship_type_id"
     ];
 }
