@@ -29,6 +29,7 @@ class Token extends Model {
 
     public static function create(array $attributes = array()) {
         $attributes['requested_on'] = date("Y-m-d H:i:s");
+        $attributes['type'] = "organisation_claim";
         $attributes['token'] = sha1(serialize($attributes['organisation_id']) . serialize($attributes['user_id']) . serialize($attributes['email']) . time() . rand(1,9999));
         return parent::create($attributes);
     }
