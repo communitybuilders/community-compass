@@ -10,9 +10,11 @@ use App\Http\Requests;
 use App\Token;
 use App\Http\Controllers\Controller;
 use App\Organisation;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 use Input;
 use MyProject\Proxies\__CG__\stdClass;
 use Request;
@@ -183,7 +185,9 @@ class OrganisationController extends Controller
         $mail_header .= "MIME-Version: 1.0\n";
 
         // Send the email
-        mail($user_obj->email, "Claim an organisation", "Hi {$user_obj->first_name}, <br/><br/>Click <a href='google.com'>here</a> to claim your organisation", $mail_header, '-fsupport@communitybuilders.com.au');
+        $token_url = URL::to("/token/process/{$token_obj->token}");
+        $email_body = "Hi {$user_obj->first_name}, <br/><br/>Click <a href='{$token_url}'>here</a> to claim your organisation.";
+        mail($user_obj->email, "Claim an organisation", $email_body, $mail_header, '-fsupport@communitybuilders.com.au');
 
         return Redirect::route("organisations.index", ["message" => "An email has been sent to {$user_obj->email} with instructions on how to claim this organisation."]);
     }

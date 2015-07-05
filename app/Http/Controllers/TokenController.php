@@ -25,6 +25,11 @@ class TokenController extends Controller
         /* @var $website_obj Website */
         $website_obj = $org_obj->getWebsite();
 
+        if( is_null($website_obj) ) {
+            echo "Sorry, this organisation cannot be claimed as there is no website associated with it.";
+            exit();
+        }
+
         // Let's get the domain name of the user's email.
         $email_parts = explode("@", $user_obj->email);
 

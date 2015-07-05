@@ -1,7 +1,8 @@
 @extends('app')
 
-@section('content')
+
     <div id="canvas" style="margin-left: 0px;"></div>
+@section('content')
     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
     <input type="hidden" id="auth" value="<?php echo $logged_in; ?>">
     <h2></h2>
@@ -24,12 +25,12 @@
                             @if (!is_null($logged_in))
                                 <a href="#" id="claim-{{$value->id}}" name="claim" data-toggle="modal" data-target="#claim" class="claim_link"><span class='fa fa-plus-square';> Claim</span></a><br />
                                 <a href="#" id="like-{{$value->id}}" name="like" data-toggle="modal" data-target="#liked"><span class='fa fa-heart'> Like</span></a><br />
-                                <a href="#" id="subscribe-{{$value->id}}" name="subscribe" data-toggle="modal" data-target="#subscribe"><span class='fa fa-share-square-o'> Subscribe</span></a><br />
+                                <a href="#" id="share-{{$value->id}}" name="share" data-toggle="modal" data-target="#share"><span class='fa fa-share-square-o'> Share</span></a><br />
                                 <a href="#" id="donate-{{$value->id}}" name="donate" data-toggle="modal" data-target="#donate"><span class='fa fa-usd'> Donate</span></a><br />
                             @else
-                                <a href="/auth/login" ><span class='fa fa-plus-square';> Claim</span></a><br />
+                                <a href="#" id="claim-{{$value->id}}" name="claim" data-toggle="modal" data-target="#claim" class="claim_link"><span class='fa fa-plus-square';> Claim</span></a><br />
                                 <a href="/auth/login" ><span class='fa fa-heart'> Like</span></a> <br />
-                                <a href="/auth/login" ><span class='fa fa-share-square-o'> Subscribe</span></a><br />
+                                <a href="/auth/login" ><span class='fa fa-share-square-o'> Share</span></a><br />
                                 <a href="/auth/login" ><span class='fa fa-usd'> Donate</span></a><br />
                             @endif
                             </div>
@@ -50,8 +51,8 @@
                     <h4 class="modal-title" id="claimLabel">Claim your Organisation</h4>
                 </div>
                 <div class="modal-body">
-                    @if (!is_null($logged_in))
-                        <form method="POST" action="/organisation/claim">
+                    <form id="claim_organisation_form" method="POST" action="/organisation/claim" style="text-align:center;">
+                        @if (is_null($logged_in))
                             <div class="form-group">
                                 <label for="first_name">First Name</label>
                                 <input type="text" class="form-control" name="first_name" placeholder="First name" />
@@ -61,20 +62,20 @@
                                 <input type="text"  class="form-control" name="last_name" placeholder="Last name" />
                             </div>
                             <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="text" class="form-control" name="username" placeholder="Username" />
+                                <label for="last_name">Email</label>
+                                <input type="text" class="form-control" name="email" placeholder="Email" />
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control" name="password" placeholder="Password" />
                             </div>
-                            <input type="hidden" name="organisation_id" id="claim_organisation_id" value="" />
-                            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                            <input type="submit" class="btn btn-primary" value="Claim!" />
-                        </form>
-                    @else
-                        Form for NON logged in user
-                    @endif
+                            <input id="but_claim_not_logged_in" type="submit" class="btn btn-primary" value="Claim!" />
+                        @else
+                            Processing...
+                        @endif
+                        <input type="hidden" name="organisation_id" id="claim_organisation_id" value="" />
+                        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>" />
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
