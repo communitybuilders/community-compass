@@ -11,7 +11,7 @@
             <div class="organisations_div">
         @foreach($organisation_arr as $value)
                     <div class="col-xs-6 col-md3 col-md-3 col-lg-3" style="float:left;">
-                        <div class="panel panel-default" style=" height:450px"  >
+                        <div class="panel panel-default" style=" height:500px"  >
                              @if ($value->image_uri != '')
                                 <img class="img-responsive center-block" style="width:100%; height:252px" src="{{$value->image_uri}}" alt="image"><br />
                                 @else
