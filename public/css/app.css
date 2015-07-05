@@ -6000,6 +6000,9 @@ body {
 #canvas {
   height: 20em; }
 
+#categories-filter {
+  margin-top: 1em; }
+
 .info-legal-name {
   font-weight: bold; }
 

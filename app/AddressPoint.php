@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -30,4 +31,23 @@ class AddressPoint extends Model
     {
         return $this->belongsTo('App\Address');
     }
+
+    /**
+     * Return a query AddressPoint query builder, sorted by distance from
+     * given geocoordinates.
+     *
+     * @param Builder $query
+     * @param float $lat
+     * @param float $lng
+     * @param int $limit
+     *
+     * @return Builder
+     */
+    public function scopeNearby($query, $lat, $lng, $limit = 30)
+    {
+        return $query->whereNotNull('geopoint')
+            ->orderByRaw('ST_DISTANCE(geopoint, POINT(' . $lat . ',' . $lng . '))')
+            ->limit($limit);
+    }
+
 }

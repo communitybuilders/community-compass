@@ -1,7 +1,7 @@
 $(function () {
 
     // Only run this js on the index page.
-    if (!$('body').is('##organisations-index')) {
+    if (!$('body').is('#organisations-index')) {
         return;
     }
 
@@ -27,7 +27,7 @@ $(function () {
         infoWindow.open(map, marker);
     });
 
-    var addNearbyMarker = function(lat, lng, organisation) {
+    var addNearbyMarker = function(lat, lng, orgInfo) {
         var nearbyLatLng = new google.maps.LatLng(lat, lng);
         var nearbyMarker = new google.maps.Marker({
             position: nearbyLatLng,
@@ -48,14 +48,14 @@ $(function () {
                 + '</div>'
                 + '</div>'
                 + '<div class="pull-left">'
-                + '<p class="info-legal-name">' + organisation.legal_name + '</p>';
+                + '<p class="info-legal-name">' + orgInfo.organisation.legal_name + '</p>';
 
-            if (organisation.website) {
-                content += '<p class="info-website"><a href="' + organisation.website.url + '">' + organisation.website.url + '</a></p>';
+            if (orgInfo.website) {
+                content += '<p class="info-website"><a href="' + orgInfo.website.url + '">' + orgInfo.website.url + '</a></p>';
             }
 
-            content += '<p><span class="info-address.address-1">' + organisation.address.address_line_1 + ' ' + organisation.address.address_line_2 + ' ' + organisation.address.address_line_3 + '</span><br>'
-            + '<span class="info-address.address-2">' + organisation.address.suburb + ' ' + organisation.address.state + ' ' + organisation.address.state + '</span>'
+            content += '<p><span class="info-address.address-1">' + orgInfo.address.address_line_1 + ' ' + orgInfo.address.address_line_2 + ' ' + orgInfo.address.address_line_3 + '</span><br>'
+            + '<span class="info-address.address-2">' + orgInfo.address.suburb + ' ' + orgInfo.address.state + ' ' + orgInfo.address.state + '</span>'
             + '</p>'
             + '</div>'
             + '</div>';

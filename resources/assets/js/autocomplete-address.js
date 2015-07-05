@@ -2,7 +2,7 @@ $(function () {
     'use strict';
 
     // Only run this js on the index page.
-    if (!$('body').is('##organisations-index')) {
+    if (!$('body').is('#organisations-index')) {
         return;
     }
 

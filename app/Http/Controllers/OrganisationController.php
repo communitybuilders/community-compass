@@ -5,6 +5,8 @@
 namespace App\Http\Controllers;
 
 use App\Address;
+use App\AddressPoint;
+use App\Http\Requests;
 use App\Token;
 use App\Http\Controllers\Controller;
 use App\Organisation;
@@ -12,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Input;
+use MyProject\Proxies\__CG__\stdClass;
 use Request;
 
 
@@ -51,7 +54,7 @@ class OrganisationController extends Controller
     {
         die("xxx");
         // TODO: make an OrganisationRequest, then Organisation::create()
-         
+
     }
 
     /**
@@ -124,38 +127,25 @@ class OrganisationController extends Controller
             return response('Unauthorized.', 401);
         }
 
+        // Get address points.
         $request = Request::all();
+        $addressPoints = AddressPoint::nearby($request['lat'], $request['lng'], 10)->get();
 
-        // Get address ids.
-        $query = DB::raw("
-            SELECT address_id,
-            ST_DISTANCE(
-                geopoint,
-                POINT(?, ?)
-            ) AS distance
-            FROM address_points
-            WHERE geopoint IS NOT NULL
-            ORDER BY distance
-            LIMIT 0, 10
-        ");
-        $points = DB::select($query, [$request['lat'], $request['lng']]);
-        $addressIds = [];
-        foreach ($points as $point) {
-            $addressIds[] = $point->address_id;
-        }
-
-
-        // Get full Organisation details for all addresses.
-        $addresses = Address::whereIn('id', $addressIds)->get();
-        $organisations = [];
-        foreach($addresses as $address) {
+        // Get the Organisation and its sub-entities.
+        $orgsFilled = [];
+        foreach($addressPoints as $addressPoint) {
+            // TODO: org image.
+            $address = $addressPoint->address;
             $organisation = $address->getOrganisation();
-            $organisation->address = $address;
-            $organisation->website = $organisation->getWebsite();
-            $organisations[] = $organisation;
+            $categories = $organisation->categories;
+            $website = $organisation->getWebsite();
+
+            $orgFilled = compact('address', 'organisation', 'categories', 'website');
+
+            $orgsFilled[] = $orgFilled;
         }
 
-        return $organisations;
+        return $orgsFilled;
     }
 
     public function claim() {
