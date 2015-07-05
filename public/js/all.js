@@ -103,13 +103,12 @@ $(function () {
         return;
     }
 
-
     $(window).scroll(function() {
         var increment = 30;
         var display ="";
 
-            if($(window).scrollTop() + $(window).height() == $(document).height()) {
-                setTimeout(function(){
+        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            setTimeout(function(){
                 $.ajax({
                     type: "POST",
                     url: "organisations/ajaxloadorganisations",
@@ -153,8 +152,8 @@ $(function () {
                         $(".organisations_div").append(display);
                     }
                 });
-                }, 200);
-            }
+            }, 200);
+        }
 
     });
 

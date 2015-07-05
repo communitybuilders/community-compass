@@ -46,7 +46,9 @@ class OrganisationController extends Controller
      */
     public function store()
     {
+        die("xxx");
         // TODO: make an OrganisationRequest, then Organisation::create()
+         
     }
 
     /**
@@ -57,8 +59,8 @@ class OrganisationController extends Controller
      */
     public function show($id)
     {
-        $org_obj = new Organisation();
-        return view('organisations.show', compact($id));
+        $org = Organisation::find($id);
+        return view('organisations.show', compact('org'));
     }
 
     /**
@@ -69,7 +71,9 @@ class OrganisationController extends Controller
      */
     public function edit($id)
     {
-        return view('organisations.edit', compact($id));
+          $org = Organisation::find($id);
+        return view('organisations.edit', compact('org'));
+
     }
 
     /**
