@@ -34,7 +34,7 @@
                 <img style="vertical-align: top; max-width:50px; margin-top: -15px; display:inline-block;" src="/images/logo.png"/>Community Compass
             </a>
             <div class="form-group">
-                <input type="text" name="autocomplete" id="autocomplete" class="form-control" style="max-width: 700px; margin-top: 8px;"value="" title="" required="required" >
+                <input type="text" name="autocomplete" id="autocomplete" class="form-control" style="max-width:700px; width:50%; margin-top: 8px;" value="" title="" required="required" >
                 <input type="hidden" name="lat" id="lat">
                 <input type="hidden" name="lat" id="lng">
             </div>

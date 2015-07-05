@@ -12,7 +12,7 @@
       <h1>{{$org["legal_name"]}}</h1>
  
  
-      <form method="POST" action="/organisations" accept-charset="UTF-8">
+      <form method="POST" action="#" accept-charset="UTF-8">
           <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
 
  
@@ -53,7 +53,7 @@
             <input class="form-control" name="Website" type="text" id="Website" value="{{$org->getWebsite()["url"]}}">
        </div>
  
-      <input class="btn btn-primary" type="submit" value="Submit"> 
+      <a class="btn btn-primary" href="#" type="submit" value="Submit">Submit</a>
 
 
 
