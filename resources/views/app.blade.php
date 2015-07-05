@@ -42,7 +42,7 @@
         </div>
         <div id="navbar" class="collapse navbar-inverse" style="width:200px; margin-top:0px; float:right; padding-left:30px">
             <ul class="nav navbar-nav">
-                <li><a href="#">Organisation</a></li>
+                <li><a href="/organisations">Organisation</a></li>
             </ul>
 
             <!-- TODO: change links depending on logged in or guest user -->

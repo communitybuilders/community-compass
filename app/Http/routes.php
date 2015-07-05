@@ -13,8 +13,13 @@
 
 // Static pages.
 Route::get('/', [
-   'as' => 'pages.index',
-   'uses' => 'PagesController@index'
+   'as' => 'organisations.index',
+   'uses' => 'OrganisationController@index'
+]);
+
+Route::get('/pages', [
+    'as' => 'pages.index',
+    'uses' => 'PagesController@index'
 ]);
 
 Route::get('auth/register', [
