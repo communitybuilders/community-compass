@@ -1,11 +1,13 @@
 @extends('app')
 
 @section('content')
-
+    <div id="canvas" style="margin-left: 0px;"></div>
     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
     <input type="hidden" id="auth" value="<?php echo $logged_in; ?>">
     <h2></h2>
     <div class="container">
+
+
         <div clas="row">
             <div class="organisations_div">
         @foreach($organisation_arr as $value)
