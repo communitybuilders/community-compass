@@ -18,18 +18,24 @@
                                 <img class="img-responsive center-block" style="width:100%; height:252px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACgCAMAAAC8EZcfAAAANlBMVEXMzMzPz8+RkZHExMSampqQkJDKysqfn5/Hx8e7u7vDw8OUlJS4uLiXl5esrKypqamzs7Ojo6OgzyMdAAACGUlEQVR4nO3V247cIBAEUJqLAXP//59NNR5npd1IeQl5qiNZYhgsaqBhjCEiIiIiIiIiIiIiIiIiIiIiIiIiIiIiOklE3sa3jp8D5fsbfx75T+URe9LJ8lp1zzrjuv80cV9r7v4eh75hUn9ePWraFot3aBTvgybs1rfwc96EYd52tNAoHgOcb9Gu62y+5H2WbqekVVL2XsztY5plvJv57rxMOy6MviWj0csU9EwTWz4b8Mq3MRUBkQshQ5LaOj74vTB1TNFH264mIxEBNdxth5GFDxryuCuGLFkXbdgss1S5EARfyAj+XsG/BYnw/pLVsiS7krT4LOfxgLF0zG27YK91v6vIExC9Zfjx+8BkX25dxWwkLCcBAd35gFfHaug274D1DfgprVba/Y68Izb3E9DGHdD8h4A4vXqp5NKfLdaA5rOCBgX3FSCWoV1Lz4XFChas4H084O3DXqzchlzDouyxTDit7gn4XCi7OfdKozBRg05rUI903RfPQZdeMXqRYP9EHyRdos8OpTXY5fNLkEd20L4fGThOo+SzfybJt1lrxTb10gemNddqfdn8hnKIsE/0bDHXiv7U/PRambnFWaI7ms+4YgNgujRs2f9gbtk29pe4Zga2POg5Rm3qSFw5kqNt+/arPsTD9zTibNq6nHvqPb0NtJJ2p0/vOzK59PU9EREREREREREREREREREREREREREREf3NL2UnEmIOKkswAAAAAElFTkSuQmCC" alt="image"><br />
                             @endif
 
-                            <div style="padding-left: 17px; padding-right: 17px; ">
+                            <div id='org_actions' style="padding-left: 17px; padding-right: 17px;">
                                 <b>{{$value->legal_name}}</b><br />
                             @if (!is_null($logged_in))
                                 <a href="#" id="claim-{{$value->id}}" name="claim" data-toggle="modal" data-target="#claim" class="claim_link"><span class='fa fa-plus-square';> Claim</span></a><br />
                                 <a href="#" id="like-{{$value->id}}" name="like" data-toggle="modal" data-target="#liked"><span class='fa fa-heart'> Like</span></a><br />
                                 <a href="#" id="share-{{$value->id}}" name="share" data-toggle="modal" data-target="#share"><span class='fa fa-share-square-o'> Share</span></a><br />
                                 <a href="#" id="donate-{{$value->id}}" name="donate" data-toggle="modal" data-target="#donate"><span class='fa fa-usd'> Donate</span></a><br />
+                                <a href="#" id="volunteer-{{$value->id}}" name="volunteer" data-toggle="modal" data-target="#volunteer"><span class='fa fa-group'> Volunteer</span></a><br />
+                                <a href="#" id="partner-{{$value->id}}" name="partner" data-toggle="modal" data-target="#partner"><span class='fa fa-exchange'> Partner</span></a><br />
+                                <a href="#" id="partner-{{$value->id}}" name="contact" data-toggle="modal" data-target="#contact"><span class='fa fa-envelope'> Contact</span></a><br />
                             @else
                                 <a href="#" id="claim-{{$value->id}}" name="claim" data-toggle="modal" data-target="#claim" class="claim_link"><span class='fa fa-plus-square';> Claim</span></a><br />
                                 <a href="/auth/login" ><span class='fa fa-heart'> Like</span></a> <br />
                                 <a href="/auth/login" ><span class='fa fa-share-square-o'> Share</span></a><br />
                                 <a href="/auth/login" ><span class='fa fa-usd'> Donate</span></a><br />
+                                <a href="/auth/login" ><span class='fa fa-group'> Volunteer</span></a><br />
+                                <a href="/auth/login" ><span class='fa fa-exchange'> Partner</span></a><br />
+                                <a href="/auth/login" ><span class='fa fa-envelope'> Contact</span></a><br />
                             @endif
                             </div>
                         </div>

@@ -199,11 +199,17 @@ $(function () {
                                 display +="<a href='#' id='like-{{$value->id}}' name='like' data-toggle='modal' data-target='#liked'><span class='fa fa-heart'> Like</span></a><br />";
                                 display +="<a href='#' id='share-{{$value->id}}' name='share' data-toggle='modal' data-target='#share'><span class='fa fa-share-square-o'> Share</span></a><br />";
                                 display +="<a href='#' id='donate-{{$value->id}}' name='donate' data-toggle='modal' data-target='#donate'><span class='fa fa-usd'> Donate</span></a><br />";
+                                display +="<a href='#' id='volunteer-{{$value->id}}' name='volunteer' data-toggle='modal' data-target='#volunteer'><span class='fa fa-group'> Volunteer</span></a><br />";
+                                display +="<a href='#' id='partner-{{$value->id}}' name='partner' data-toggle='modal' data-target='#partner'><span class='fa fa-exchange'> Partner</span></a><br />";
+                                display +="<a href='#' id='contact-{{$value->id}}' name='contact' data-toggle='modal' data-target='#contact'><span class='fa fa-envelope'> Contact</span></a><br />";
                             }else{
                                 display +="<a href='#' id='claim-{{$value->id}}' name='claim' data-toggle='modal' data-target='#claim' class='claim_link'><span class='fa fa-plus-square'> Claim</span></a><br />";
                                 display +="<a href='/auth/login' ><span class='fa fa-heart'> Like</span></a><br />";
                                 display +="<a href='/auth/login' ><span class='fa fa-share-square-o'> Share</span></a><br />";
                                 display +="<a href='/auth/login' ><span class='fa fa-usd'> Donate</span></a><br />";
+                                display +="<a href='/auth/login' ><span class='fa fa-group'> Volunteer</span></a><br />";
+                                display +="<a href='/auth/login' ><span class='fa fa-exchange'> Partner</span></a><br />";
+                                display +="<a href='/auth/login' ><span class='fa fa-envelope'> Contact</span></a><br />";
                             }
 
                             display +="</div>";
