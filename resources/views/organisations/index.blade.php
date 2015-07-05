@@ -52,13 +52,25 @@
                 <div class="modal-body">
                     @if (!is_null($logged_in))
                         <form method="POST" action="/organisation/claim">
-                            <input type="text" name="first_name" placeholder="First name" />
-                            <input type="text" name="last_name" placeholder="Last name" />
-                            <input type="text" name="username" placeholder="Username" />
-                            <input type="text" name="email" placeholder="Email" />
+                            <div class="form-group">
+                                <label for="first_name">First Name</label>
+                                <input type="text" class="form-control" name="first_name" placeholder="First name" />
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name">Last Name</label>
+                                <input type="text"  class="form-control" name="last_name" placeholder="Last name" />
+                            </div>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" name="username" placeholder="Username" />
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" name="password" placeholder="Password" />
+                            </div>
                             <input type="hidden" name="organisation_id" id="claim_organisation_id" value="" />
                             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                            <input type="submit" value="Claim!" />
+                            <input type="submit" class="btn btn-primary" value="Claim!" />
                         </form>
                     @else
                         Form for NON logged in user
