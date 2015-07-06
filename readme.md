@@ -7,7 +7,8 @@ GovHack 2015.
 The platform, as it was submitted at the end of the competition, is available
 in the 'govhack' branch.
 
-We may continue to complete features in this master branch.
+We may continue to complete features in this master branch or take them
+private for the 'grand reveal'.
 
 ### License
 
