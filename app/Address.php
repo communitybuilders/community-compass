@@ -43,13 +43,13 @@ class Address extends Model
     }
 
     /**
-     * Get the organisation that this address belongs to.
+     * Each address belongs to an organisation.
      *
-     * @return Organisation|null
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function getOrganisation()
+    public function organisation()
     {
-        return Organisation::find($this->entity_id);
+        return $this->belongsTo('App\Organisation', 'entity_id');
     }
 
     /**

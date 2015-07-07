@@ -21,4 +21,14 @@ class Image extends Model
         'entity_id',
         'email_address'
     ];
+
+    /**
+     * Each image belongs to an organisation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function organisation()
+    {
+        return $this->belongsTo('App\Organisation', 'entity_id');
+    }
 }

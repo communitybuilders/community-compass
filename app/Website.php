@@ -23,12 +23,13 @@ class Website extends Model
     ];
 
     /**
-     * Return the organisation that this website belongs to.
+     * Each website belongs to an organisation.
      *
-     * @return Organisation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function getOrganisation()
+    public function organisation()
     {
-        return Organisation::find($this->entity_id);
+        return $this->belongsTo('App\Organisation', 'entity_id');
     }
+
 }

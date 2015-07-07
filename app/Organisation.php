@@ -50,27 +50,33 @@ class Organisation extends Model
     }
 
     /**
-     * Return addresses belonging to this organisation.
+     * Each organisation can have an address.
      *
-     * @return Address|null
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function getAddress()
+    public function address()
     {
-        return Address::where('entity_type', 'Organisation')
-            ->where('entity_id', $this->id)
-            ->first();
+        return $this->hasOne('App\Address', 'entity_id');
     }
 
     /**
-     * Return the website that this website belongs to.
+     * Each organisation can have an image.
      *
-     * @return Website|null
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function getWebsite()
+    public function image()
     {
-        return Website::where('entity_type', 'Organisation')
-            ->where('entity_id', $this->id)
-            ->first();
+        return $this->hasOne('App\Image', 'entity_id');
+    }
+
+    /**
+     * Each organisation can have a website.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function website()
+    {
+        return $this->hasOne('App\Website', 'entity_id');
     }
 
     /**
