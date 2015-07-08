@@ -6003,7 +6003,13 @@ body {
 #categories-filter {
   margin-top: 1em; }
 
-.info-legal-name {
+.info-window .image-container {
+  margin-right: 1em; }
+
+.info-window .info-actions a {
+  color: gray; }
+
+.info-window .info-legal-name {
   font-weight: bold; }
 
 .navbar-header {

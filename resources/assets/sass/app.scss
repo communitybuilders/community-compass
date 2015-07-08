@@ -16,8 +16,16 @@ body {
   margin-top: 1em;
 }
 
-.info-legal-name {
-  font-weight: bold;
+.info-window {
+    .image-container {
+        margin-right: 1em;
+    }
+    .info-actions a {
+        color: rgb(128, 128, 128);
+    }
+    .info-legal-name {
+      font-weight: bold;
+    }
 }
 
 .navbar-header {
