@@ -14,7 +14,7 @@
 // Static pages.
 Route::get('/', [
    'as' => 'organisations.index',
-   'uses' => 'OrganisationController@index'
+   'uses' => 'OrganisationsController@index'
 ]);
 
 Route::get('/pages', [
@@ -48,17 +48,31 @@ Route::get('auth/logout', [
 ]);
 
 //ajax calls
-Route::post('organisations/ajaxloadorganisations', 'OrganisationController@ajaxloadorganisations');
-Route::post('organisations/nearby', 'OrganisationController@nearby');
+Route::post('organisations/ajaxloadorganisations', 'OrganisationsController@ajaxloadorganisations');
+Route::post('organisations/closest', 'OrganisationsController@closest');
 
 // CRUD organisations.
-Route::resource('organisations', 'OrganisationController');
+Route::resource('organisations', 'OrganisationsController');
 
 // Claim an organisation
-Route::post('organisation/claim', 'OrganisationController@claim');
+Route::post('organisation/claim', 'OrganisationsController@claim');
 
 Route::bind('token', function($token_str) {
     return \App\Token::whereToken($token_str)->first();
 });
 
 Route::get('token/process/{token}', 'TokenController@process');
+
+Route::get('test', function() {
+    // 96 phillip st parramatta
+    $lat = -33.8132992;
+    $lng = 151.0094947;
+
+    $orgs = App\Organisation::
+        withImage()
+        ->withWebsite()
+        ->closest($lat, $lng)
+        ->get()->toArray();
+
+    dd($orgs);
+});

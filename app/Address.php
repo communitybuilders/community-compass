@@ -29,18 +29,9 @@ class Address extends Model
         'postcode',
         'country',
         'lat',
-        'lng'
+        'lng',
+        'geopoint'
     ];
-
-    /**
-     * Each address has one point.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function addressPoint()
-    {
-        return $this->hasOne('App\AddressPoint');
-    }
 
     /**
      * Each address belongs to an organisation.
@@ -52,38 +43,4 @@ class Address extends Model
         return $this->belongsTo('App\Organisation', 'entity_id');
     }
 
-    /**
-     * Returns a query for addresses of organisations,
-     * optionally filtered by organisation ID.
-     *
-     * @param Builder $query
-     * @param int|null $organisation_id
-     *
-     * @return Builder
-     */
-    public function scopeOrganisations($query, $organisation_id = null)
-    {
-        $builder = $query->where('entity_type', 'Organisation');
-
-        if ($organisation_id) {
-            return $builder->where('entity_id', $organisation_id);
-        }
-
-        return $builder;
-    }
-
-    /**
-     * Returns a query for addresses between two postcodes.
-     *
-     * @param Builder $query
-     * @param float $latitude
-     * @param float $longitude
-     * @param float $max_distance
-     * @param int $limit
-     */
-    public function scopeWithinDistance($query, $latitude, $longitude, $max_distance, $limit)
-    {
-        // TODO: sql function for calc distance between points.
-
-    }
 }

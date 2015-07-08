@@ -5,7 +5,6 @@
 namespace App\Http\Controllers;
 
 use App\Address;
-use App\AddressPoint;
 use App\Http\Requests;
 use App\Token;
 use App\Http\Controllers\Controller;
@@ -20,7 +19,7 @@ use MyProject\Proxies\__CG__\stdClass;
 use Request;
 
 
-class OrganisationController extends Controller
+class OrganisationsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -32,9 +31,14 @@ class OrganisationController extends Controller
         $logged_in = Auth::user();
 
         $organisation = new Organisation();
-        $organisation_arr = $organisation->fillorganisation();
+        $lat = -33.8132992;
+        $lng = 151.0094947;
+        $organisation_arr = Organisation::closest($lat, $lng, 0)
+            ->withImage()
+            ->withWebsite()
+            ->get();
 
-        return view('organisations.index', compact('organisation_arr', 'logged_in'));
+        return view('organisations.index', compact('logged_in', 'organisation_arr'));
     }
 
     /**
@@ -106,24 +110,11 @@ class OrganisationController extends Controller
         // Intentially left blank.
     }
 
-    public function ajaxloadorganisations(){
-        $data = Input::all();
-
-        $current_row = $data['current_row'];
-        $next_row = $current_row + 1;
-
-        $organisation = New Organisation();
-        $organisation_arr = $organisation->fillorganisationbyid($next_row);
-
-        echo json_encode($organisation_arr);
-        die();
-    }
-
     /**
      * Return a list of nearby organisations, for AJAX requests.
      *
      */
-    public function nearby()
+    public function closest()
     {
         if (!Request::ajax()) {
             return response('Unauthorized.', 401);
@@ -131,23 +122,19 @@ class OrganisationController extends Controller
 
         // Get address points.
         $request = Request::all();
-        $addressPoints = AddressPoint::nearby($request['lat'], $request['lng'], 10)->get();
 
-        // Get the Organisation and its sub-entities.
-        $orgsFilled = [];
-        foreach($addressPoints as $addressPoint) {
-            // TODO: org image.
-            $address = $addressPoint->address;
-            $organisation = $address->getOrganisation();
-            $categories = $organisation->categories;
-            $website = $organisation->getWebsite();
 
-            $orgFilled = compact('address', 'organisation', 'categories', 'website');
+        $organisations = Organisation::closest(
+            $request['lat'], 
+            $request['lng'], 
+            $request['skip'],
+            $request['take']
+        )
+            ->withImage()
+            ->withWebsite()
+            ->get();
 
-            $orgsFilled[] = $orgFilled;
-        }
-
-        return $orgsFilled;
+        return $organisations;
     }
 
     public function claim() {

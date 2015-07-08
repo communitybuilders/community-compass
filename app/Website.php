@@ -23,7 +23,7 @@ class Website extends Model
     ];
 
     /**
-     * Each website belongs to an organisation.
+     * Each website can belong to an organisation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

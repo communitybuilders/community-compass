@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Illuminate\Database\Query\Builder;
 
 /**
  * Class Organisation
@@ -30,6 +31,17 @@ class Organisation extends Model
     ];
 
     /**
+     * Each organisation can have an address.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function address()
+    {
+        return $this->hasOne('App\Address', 'entity_id')
+            ->where('entity_type', 'Organisation');
+    }
+
+    /**
      * An organisation can have many categories.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -37,6 +49,17 @@ class Organisation extends Model
     public function categories()
     {
         return $this->belongsToMany('App\Category');
+    }
+
+    /**
+     * Each organisation can have an image.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function image()
+    {
+        return $this->hasOne('App\Image', 'entity_id')
+            ->where('entity_type', 'Organisation');
     }
 
     /**
@@ -50,54 +73,86 @@ class Organisation extends Model
     }
 
     /**
-     * Each organisation can have an address.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function address()
-    {
-        return $this->hasOne('App\Address', 'entity_id');
-    }
-
-    /**
-     * Each organisation can have an image.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function image()
-    {
-        return $this->hasOne('App\Image', 'entity_id');
-    }
-
-    /**
      * Each organisation can have a website.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function website()
     {
-        return $this->hasOne('App\Website', 'entity_id');
+        return $this->hasOne('App\Website', 'entity_id')
+            ->where('entity_type', 'Organisation');
     }
 
     /**
-     * Function to organisation values
+     * Return a query builder, sorted by address distance from coordinates.
      *
-     * @return array
+     * @param Builder $query
+     * @param float $lat
+     * @param float $lng
+     * @param int $skip
+     * @param int $take
+     *
+     * @return Builder
      */
-    public function fillorganisation()
+    public function scopeClosest($query, $lat, $lng, $skip = 0, $take = 24)
     {
-        $results = DB::table('organisations')->leftjoin('image', 'organisations.id', '=', 'image.entity_id')->take(30)->select("organisations.*", "image.image_uri")->get();
-        return $results;
+        return $query->join('addresses', 'organisations.id', '=', 'addresses.entity_id')
+            ->select()
+            ->selectRaw('ST_ASTEXT(addresses.geopoint) AS geopoint')
+//            ->selectRaw('ST_DISTANCE(addresses.geopoint, POINT(?, ?)) as distance', [$lat, $lng])
+            ->where('addresses.entity_type', 'Organisation')
+            ->whereNotNull('addresses.geopoint')
+//            ->orderByRaw('distance')
+            ->orderByRaw('ST_DISTANCE(addresses.geopoint, POINT(?, ?))', [$lat, $lng])
+            ->skip($skip)
+            ->take($take);
     }
 
     /**
-     * Function to organisation values
-     * @param int $row
-     * @return array
+     * Return a query scope, eager loaded with address relations.
+     *
+     * @param Builder $query
+     *
+     * @return Builder
      */
-    public function fillorganisationbyid($row)
+    public function scopeWithAddress($query)
     {
-        $results = DB::table('organisations')->leftjoin('image', 'organisations.id', '=', 'image.entity_id')->take(30)->where('organisations.id', '>=', $row)->get();
-        return $results;
+        return $query->with('address');
     }
+    /**
+     * Return a query scope, eager loaded with categories relations.
+     *
+     * @param Builder $query
+     *
+     * @return Builder
+     */
+    public function scopeWithCategories($query)
+    {
+        return $query->with('categories');
+    }
+
+    /**
+     * Return a query scope, eager loaded with image relations.
+     *
+     * @param Builder $query
+     *
+     * @return Builder
+     */
+    public function scopeWithImage($query)
+    {
+        return $query->with('image');
+    }
+
+    /**
+     * Return a query scope, eager loaded with website relations.
+     *
+     * @param Builder $query
+     *
+     * @return Builder
+     */
+    public function scopeWithWebsite($query)
+    {
+        return $query->with('website');
+    }
+
 }

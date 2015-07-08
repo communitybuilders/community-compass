@@ -50,7 +50,7 @@ class TokenController extends Controller
                 "start_date" => date("Y-m-d H:i:s")
             ]);
 
-            return Redirect::action('OrganisationController@index', array('message' => "Successfully claimed organisation!"));
+            return Redirect::action('OrganisationsController@index', array('message' => "Successfully claimed organisation!"));
         }
     }
 

@@ -18,11 +18,6 @@ class Role extends Model
      */
     protected $fillable = ['title'];
 
-    public function client()
-    {
-        Role::where('title', 'Client')
-    }
-
     /**
      * A role can have many users.
      *
@@ -31,5 +26,28 @@ class Role extends Model
     public function users()
     {
         return $this->hasMany('App\User');
+    }
+
+    /**
+     * Scope to only include administrators.
+     *
+     * @param $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAdmins($query)
+    {
+        return $query->where('title', 'Admin');
+    }
+    /**
+     * Scope to only include clients.
+     *
+     * @param $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeClients($query)
+    {
+        return $query->where('title', 'Client');
     }
 }

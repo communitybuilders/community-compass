@@ -37,28 +37,34 @@ $(function () {
         google.maps.event.addListener(nearbyMarker, 'click', function() {
             var infoContainer = $('.info-window').first();
 
-            var content = '<div class="info-window">'
-                + '<div class="image-container pull-left">'
-                + '<img src="http://placehold.it/100x75">'
-                + '<div class="info-actions text-center">'
-                + '<a href="info-claim">C</a>'
-                + '<a href="info-like">L</a>'
-                + '<a href="info-subscribe">S</a>'
-                + '<a href="info-donate">D</a>'
-                + '</div>'
-                + '</div>'
-                + '<div class="pull-left">'
-                + '<p class="info-legal-name">' + orgInfo.organisation.legal_name + '</p>';
+            var content = '<div class="info-window">' +
+                '<div class="image-container pull-left">';
+
+            if (orgInfo.image) {
+                content += '<img style="max-height: 100px; max-width: 100px;" src=' + orgInfo.image.image_uri + '>';
+            } else {
+                content += '<img src="http://placehold.it/100x100">';
+            }
+
+            content += '<div class="info-actions text-center">' +
+                '<a href="info-claim">C</a>' +
+                '<a href="info-like">L</a>' +
+                '<a href="info-subscribe">S</a>' +
+                '<a href="info-donate">D</a>' +
+                '</div>' +
+                '</div>' +
+                '<div class="pull-left">' +
+                '<p class="info-legal-name">' + orgInfo.legal_name + '</p>';
 
             if (orgInfo.website) {
                 content += '<p class="info-website"><a href="' + orgInfo.website.url + '">' + orgInfo.website.url + '</a></p>';
             }
 
-            content += '<p><span class="info-address.address-1">' + orgInfo.address.address_line_1 + ' ' + orgInfo.address.address_line_2 + ' ' + orgInfo.address.address_line_3 + '</span><br>'
-            + '<span class="info-address.address-2">' + orgInfo.address.suburb + ' ' + orgInfo.address.state + ' ' + orgInfo.address.state + '</span>'
-            + '</p>'
-            + '</div>'
-            + '</div>';
+            content += '<p><span class="info-address.address-1">' + orgInfo.address_line_1 + ' ' + orgInfo.address_line_2 + ' ' + orgInfo.address_line_3 + '</span><br>' +
+                '<span class="info-address.address-2">' + orgInfo.suburb + ' ' + orgInfo.state + ' ' + orgInfo.state + '</span>' +
+                '</p>' +
+                '</div>' +
+                '</div>';
 
             infoWindow.setContent(content);
             infoWindow.open(map, nearbyMarker);
@@ -79,25 +85,28 @@ $(function () {
 
         latLng = new google.maps.LatLng(lat, lng);
         map.setCenter(latLng);
+        marker.setIcon('http://maps.google.com/mapfiles/marker_green.png');
         marker.setPosition(latLng);
         marker.setMap(map);
     };
 
-    var getNearbyOrganisations = function(lat, lng) {
+    var getNearbyOrganisations = function(lat, lng, skip, take) {
 
         $.ajax({
             type: 'POST',
-            url: 'organisations/nearby',
+            url: 'organisations/closest',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
                 'lat': lat,
-                'lng': lng
+                'lng': lng,
+                'skip': skip,
+                'take': take
             },
             success: function(results) {
                 $.each(results, function (index, result) {
-                    addNearbyMarker(result.address.lat, result.address.lng, result);
+                    addNearbyMarker(result.lat, result.lng, result);
                 });
             }
         });
@@ -106,7 +115,7 @@ $(function () {
 
     $('#lat, #lng').on('change', function() {
         updateMap($('#lat').val(), $('#lng').val());
-        getNearbyOrganisations($('#lat').val(), $('#lng').val());
+        getNearbyOrganisations($('#lat').val(), $('#lng').val(), 0, 10);
     });
 
     var defaultLoc = {

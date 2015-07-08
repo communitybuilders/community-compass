@@ -11,7 +11,7 @@ class PagesController extends Controller
 {
     public function index()
     {
-      //  return redirect()->action('App\Http\Controllers\OrganisationController@index');
+      //  return redirect()->action('App\Http\Controllers\OrganisationsController@index');
 
     }
 }

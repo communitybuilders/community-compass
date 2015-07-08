@@ -23,7 +23,7 @@ class Image extends Model
     ];
 
     /**
-     * Each image belongs to an organisation.
+     * Each image can belong to an organisation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
